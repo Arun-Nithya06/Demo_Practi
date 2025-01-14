@@ -1,0 +1,337 @@
+                     +---------------------------------+
+                     |                                 |
+                     |    Pharmacy Management System   |
+                     |            (PMS)                |
+                     |                                 |
+                     +---------------------------------+
+                            ^   ^   ^   ^
+                            |   |   |   |
+          +-----------------+---+---+---+-----------------+
+          |                 |   |   |   |                 |
+  +-------+-----+  +--------+---+ +--------+   +-------+-----+
+  |   Customer  |  |  Supplier  | | Pharmacist|   |  Admin     |
+  +-------------+  +------------+ +-----------+   +-----------+
+         |             |             |                |
+   Sends prescription  Sends medicines  Manages prescriptions, inventory
+   details, receives   and supply updates orders, handles sales
+   bill, makes payments
+
+
+
+
++------------------------------------------------+           +----------------------------+
+|                                                |           |                            |
+|               1. Manage Inventory              |           |        2. Process Sales     |
+|                                                |           |                            |
+|  - Update stock levels                         |           |  - Validate prescription   |
+|  - Add/remove drugs                            |           |  - Check drug availability |
+|  - Track expiry dates                          |           |  - Generate bill           |
+|  - Notify low stock                            |           |  - Process payment         |
++------------------------------------------------+           |  - Update inventory        |
+         |                                             +----------------------------+
+         v                                                          |
++-----------------------------+                             +---------------------------+
+|                             |                             |                           |
+|  3. Manage Customers        |                             |      4. Handle Suppliers   |
+|                             |                             |                           |
+|  - Store customer info      |                             |  - Receive supply updates |
+|  - Track transaction history|                             |  - Order medicines        |
++-----------------------------+                             +---------------------------+
+         |
+         v
++-----------------------------+
+|                             |
+|      5. Generate Reports    |
+|                             |
+|  - Sales report             |
+|  - Inventory report         |
+|  - Transaction reports      |
++-----------------------------+
+
+         |
+         v
++-----------------------------+
+|                             |
+|       6. User Management    |
+|                             |
+|  - Manage roles/permissions|
+|  - Login authentication    |
++-----------------------------+
+
+
+
+
+
++-----------------------------+
+|                             |
+|    2.1 Validate Prescription |
+|                             |
+|  - Check prescription validity |
+|  - Verify customer details    |
++-----------------------------+
+            |
+            v
++-----------------------------+
+|                             |
+|    2.2 Check Inventory      |
+|                             |
+|  - Check if drug is in stock|
+|  - Verify drug availability |
++-----------------------------+
+            |
+            v
++-----------------------------+
+|                             |
+|    2.3 Generate Bill        |
+|                             |
+|  - Calculate total price    |
+|  - Apply discounts          |
++-----------------------------+
+            |
+            v
++-----------------------------+
+|                             |
+|    2.4 Process Payment      |
+|                             |
+|  - Handle payment (cash/card)|
+|  - Generate receipt         |
++-----------------------------+
+            |
+            v
++-----------------------------+
+|                             |
+|    2.5 Update Inventory     |
+|                             |
+|  - Reduce stock after sale  |
+|  - Update inventory database|
++-----------------------------+
+            |
+            v
++-----------------------------+
+|                             |
+|    2.6 Update Customer Record|
+|                             |
+|  - Update transaction history|
+|  - Add prescription details  |
++-----------------------------+
+
+
+Data Stores (for Levels 1 and 2):
+D1: Inventory Database - Stores drug details (name, quantity, expiry date, etc.).
+D2: Customer Database - Stores customer personal details, prescription history, and transaction details.
+D3: Sales Transaction Database - Stores data related to sales, payments, and generated invoices.
+D4: Supplier Database - Stores information about suppliers and inventory updates.
+Data Flows (for Levels 1 and 2):
+1. Manage Inventory:
+Input: Stock updates from suppliers, stock request from sales.
+Output: Updated stock records in the Inventory Database (D1).
+2. Process Sales:
+Input: Prescription details, payment details, drug availability.
+Output: Sales data recorded in Sales Transaction Database (D3), updated inventory, bill generation, customer transaction history update.
+3. Manage Customers:
+Input: Customer registration, purchase history.
+Output: Updated customer details in Customer Database (D2).
+4. Handle Suppliers:
+Input: Supply orders, inventory updates.
+Output: Updated inventory details in Inventory Database (D1).
+5. Generate Reports:
+Input: Sales and inventory data.
+Output: Reports such as sales, stock, and transaction reports.
+6. User Management:
+Input: User credentials, access roles.
+Output: Updated user roles and permissions.
+This written DFD structure outlines the processes, data stores, and flows within a Pharmacy Management System (PMS). You can visualize it using diagramming tools such as Microsoft Visio, Lucidchart, or Draw.io to better represent the relationships and interactions between different components.
+
+
+
+
+
+
+
+              +------------+  
+              |  Customer  |  
+              +------------+  
+                    | 
+                    | Makes Purchase
+                    v
+           +---------------------+
+           |   Order Management  |
+           +---------------------+  
+           |                     |
+           |                     v
+           v              +-------------------+
+ +-------------------+    | Inventory Management |
+ |    Orders         |<---+-------------------+
+ +-------------------+             |
+                                  |
+                                  v
+                         +--------------------+
+                         |     Inventory      |
+                         +--------------------+
+                                  ^
+                                  |
+                                 |
+                          +---------------+ 
+                          | Billing &     |
+                          | Payment       |
+                          +---------------+
+                                 ^
+                                 |
+                           +---------------+
+                           |    Invoices   |
+                           +---------------+
+                                 |
+                            +----------------+
+                            | Pharmacy Staff |
+                            +----------------+
+                                 |
+                                 v
+                         +----------------------+
+                         |       Supplier       |
+                         +----------------------+
+                                 |
+                                 v
+                        +---------------------+
+                        | Inventory Update    |
+                        +---------------------+
+
+
+
+
+
+
+
+
+              +------------+  
+              |  Customer  |  
+              +------------+  
+                    | 
+                    | Makes Purchase
+                    v
+           +---------------------+
+           |   Order Management  |
+           +---------------------+  
+           |                     |
+           |                     v
+           v              +-------------------+
+ +-------------------+    | Inventory Management |
+ |    Orders         |<---+-------------------+
+ +-------------------+             |
+                                  |
+                                  v
+                         +--------------------+
+                         |     Inventory      |
+                         +--------------------+
+                                  ^
+                                  |
+                                 |
+                          +---------------+ 
+                          | Billing &     |
+                          | Payment       |
+                          +---------------+
+                                 ^
+                                 |
+                           +---------------+
+                           |    Invoices   |
+                           +---------------+
+                                 |
+                            +----------------+
+                            | Pharmacy Staff |
+                            +----------------+
+                                 |
+                                 v
+                         +----------------------+
+                         |       Supplier       |
+                         +----------------------+
+                                 |
+                                 v
+                        +---------------------+
+                        | Inventory Update    |
+                        +---------------------+
+
+
+
+
+
+
+
+
+              +------------+  
+              |  Customer  |  
+              +------------+  
+                    | 
+                    | Makes Purchase
+                    v
+           +---------------------+
+           |   Order Management  |
+           +---------------------+  
+                    |
+                    v
+          +----------------------+
+          |    Verify Order      |
+          +----------------------+
+                    |
+                    v
+         +-----------------------+
+         |     Create Order      |
+         +-----------------------+
+                    |
+                    v
+         +-----------------------+
+         |        Orders         |
+         +-----------------------+
+                    |
+                    v
+        +------------------------+
+        | Inventory Management   |
+        +------------------------+  
+                    | 
+                    v
+          +--------------------+  
+          |    Update Inventory|  
+          +--------------------+
+                    |
+                    v
+           +------------------+
+           | Track Stock Levels|
+           +------------------+
+                    |
+                    v
+              +------------------+
+              |    Inventory     |
+              +------------------+
+                    ^
+                    |
+         +--------------------+
+         |   Billing & Payment|
+         +--------------------+
+                    |
+                    v
+         +--------------------+
+         |  Generate Invoice  |
+         +--------------------+
+                    |
+                    v
+         +--------------------+
+         |   Process Payment  |
+         +--------------------+
+                    |
+                    v
+            +------------------+
+            |   Invoices       |
+            +------------------+
+                    ^
+                    |
+               +--------------+
+               | Pharmacy Staff|
+               +--------------+
+                    |
+                    v
+             +------------------+
+             |     Supplier     |
+             +------------------+
+                    |
+                    v
+             +------------------+
+             | Inventory Update |
+             +------------------+
